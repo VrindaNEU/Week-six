@@ -105,6 +105,7 @@ class APOTrainer:
                 samples = self.ref_model.generate(
                     [prompt],
                     num_samples=num_samples,
+                    min_new_tokens=30,  # ← ADD THIS!
                     temperature=1.0,
                     max_length=self.gen_max_length
                 )[0]
@@ -239,8 +240,13 @@ class APOTrainer:
             if torch.cuda.is_available(): torch.cuda.empty_cache()
 
             generated_texts = self.policy.generate(
-                prompts, max_length=self.gen_max_length, temperature=self.temperature,
-                do_sample=True, top_p=self.top_p, top_k=self.top_k
+                prompts, 
+                max_length=self.gen_max_length,
+                min_new_tokens=30,  # ← ADD THIS!
+                temperature=self.temperature,
+                do_sample=True, 
+                top_p=self.top_p, 
+                top_k=self.top_k
             )
 
             # Step 3: Compute rewards

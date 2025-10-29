@@ -28,8 +28,8 @@ sampling:
   top_k: 0
 
 training:
-  num_epochs: 3
-  max_steps: 250
+  num_epochs: 2
+  max_steps: 200
   eval_every: 50                   # Reduced from 25 (saves compute!)
   save_every: 50                   # Reduced from 25
 
