@@ -18,12 +18,12 @@ class APOTrainer:
         # APO hyperparams
         apo_cfg = config.get('apo', {})
         self.beta = apo_cfg.get('beta', 0.5)
-        self.v_star_samples = apo_cfg.get('v_star_samples', 5) # Increased default
-        self.learning_rate = apo_cfg.get('learning_rate', 5e-7) # Lowered default
+        self.v_star_samples = apo_cfg.get('v_star_samples', 5) 
+        self.learning_rate = apo_cfg.get('learning_rate', 5e-7)
         self.kl_coef = apo_cfg.get('kl_coef', 0.02)
         self.use_exp_weights = apo_cfg.get('use_exp_weights', False) # Default to Advantage Weighting
         self.adv_clip = apo_cfg.get('adv_clip', 3.0)
-        self.clip_grad_norm = apo_cfg.get('clip_grad_norm', 1.0) # Added grad clipping value
+        self.clip_grad_norm = apo_cfg.get('clip_grad_norm', 1.0) # Grad clipping value
         self.weighting_scheme = apo_cfg.get('weighting_scheme', 'normalized_advantage') # 'exp', 'normalized_advantage', 'shifted_advantage'
         self.log_intermediate_values = apo_cfg.get('log_intermediate_values', False) # Flag for detailed logging
 
@@ -105,7 +105,7 @@ class APOTrainer:
                 samples = self.ref_model.generate(
                     [prompt],
                     num_samples=num_samples,
-                    min_new_tokens=30,  # ← ADD THIS!
+                    min_new_tokens=30,
                     temperature=1.0,
                     max_length=self.gen_max_length
                 )[0]
@@ -195,7 +195,7 @@ class APOTrainer:
         # Handle cases where an example has no valid labels (e.g., prompt filled max_length)
         per_ex_loss = torch.nan_to_num(per_ex_loss, nan=0.0) # Replace NaN with 0 if no valid tokens
 
-        return per_ex_loss # [B]
+        return per_ex_loss
 
 
     def _compute_kl_loss(self, logits_pi: torch.Tensor, logits_ref: torch.Tensor, labels: torch.Tensor) -> torch.Tensor:
@@ -222,7 +222,7 @@ class APOTrainer:
         kl_per_ex = kl_div_tokens.sum(dim=1) / token_mask.sum(dim=1).clamp_min(1.0)
         kl_per_ex = torch.nan_to_num(kl_per_ex, nan=0.0) # Handle NaN
 
-        return kl_per_ex # [B]
+        return kl_per_ex
 
 
     def train_step(self, batch: List[Dict]) -> tuple:
@@ -242,7 +242,7 @@ class APOTrainer:
             generated_texts = self.policy.generate(
                 prompts, 
                 max_length=self.gen_max_length,
-                min_new_tokens=30,  # ← ADD THIS!
+                min_new_tokens=30,
                 temperature=self.temperature,
                 do_sample=True, 
                 top_p=self.top_p, 

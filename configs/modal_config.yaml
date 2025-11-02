@@ -1,5 +1,5 @@
-# TinyZero Optimized Config - 70%+ Credit Savings!
-# Supports BOTH multiplication and countdown
+# TinyZero Optimized Config
+
 
 model:
   name: "Qwen/Qwen2.5-3B"
@@ -13,9 +13,9 @@ apo:
   v_star_samples: 5                # Base samples (adaptive will adjust)
   adaptive_vstar: true             # Enable adaptive sampling (5→3→2)
   learning_rate: 0.0000003         # 3e-7
-  batch_size: 4                    # Increased from 2
+  batch_size: 4                    
   gradient_accumulation_steps: 4
-  kl_coef: 0.03                    # Increased exploration
+  kl_coef: 0.03                    
   use_exp_weights: false
   adv_clip: 2.0
   clip_grad_norm: 1.0
@@ -30,15 +30,15 @@ sampling:
 training:
   num_epochs: 2
   max_steps: 200
-  eval_every: 50                   # Reduced from 25 (saves compute!)
-  save_every: 50                   # Reduced from 25
+  eval_every: 50                   
+  save_every: 50                  
 
 data:
   train_size: 400
   eval_size: 50
   tasks:
-    - "multiplication"             # You can remove this line
-    - "countdown"                  # Or remove this line
+    - "multiplication"             
+    - "countdown"  
   # Both tasks = mixed training (recommended)
   # One task = focused training
 

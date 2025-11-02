@@ -94,7 +94,7 @@ def evaluate(
                 else:
                     actual = 'N/A'
                 
-                # Fix float display: 12.0 → 12
+                # Account for both float and Integer
                 if predicted is not None and isinstance(predicted, float):
                     predicted_display = int(predicted) if predicted == int(predicted) else predicted
                 else:

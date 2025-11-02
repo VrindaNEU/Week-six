@@ -200,7 +200,7 @@ def compute_reward_with_partial_credit(
                 problem['target']
             )
     
-    # --- Apply Partial Credit (NEW SCHEME with format bonus) ---
+    # --- Apply Partial Credit ---
     if not check_reasoning:
         # Binary reward (for V* computation)
         return 1.0 if final_answer_correct else 0.0
@@ -208,19 +208,19 @@ def compute_reward_with_partial_credit(
     # Training rewards with format consideration
     if final_answer_correct:
         if has_proper_format and has_reasoning:
-            return 1.0  # Perfect! ✅✅✅
+            return 1.0  # Perfect!
         elif has_proper_format:
-            return 0.8  # Good format, weak reasoning ✅✅
+            return 0.8  # Good format, weak reasoning
         elif has_reasoning:
-            return 0.6  # Good reasoning, wrong format ✅
+            return 0.6  # Good reasoning, wrong format
         else:
             return 0.5  # Just correct answer
     else:
         # Wrong answer
         if has_proper_format and has_reasoning:
-            return 0.3  # Good attempt with proper format 🤔
+            return 0.3  # Good attempt with proper format
         else:
-            return 0.0  # Nothing good ❌
+            return 0.0  # Nothing good
 
 
 def compute_reward(

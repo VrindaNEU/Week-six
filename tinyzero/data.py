@@ -140,7 +140,7 @@ class CurriculumMathDataset(Dataset):
         
         answer = num1 * num2
         
-        # NEW: Instruct model to use proper format
+        # Instruct model to use proper format
         prompt = (f"What is {num1} × {num2}? "
                 f"Show your reasoning in <think> tags and "
                 f"put your final answer in <answer> tags.")

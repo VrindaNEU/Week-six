@@ -35,7 +35,7 @@ class TestExtractAnswer:
         """Test extracting numbers with commas"""
         text = "The answer is 1,234,567"
         answer = extract_answer(text)
-        assert answer == "1234567"  # Commas removed
+        assert answer == "1234567"  
 
 
 class TestComputeReward:
